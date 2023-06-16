@@ -1,38 +1,121 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* main {
+  display: grid;
+  height: 150vh;
+  grid-template-rows: auto 1fr auto;
+}
+
+header {
+  background-color: #2C3333;
+  text-align: center;
+  padding: 2em;
+}
+
+main {
+  background-color: #395B64;
+  text-align: center;
+  padding: 2em;
+}
+
+footer {
+  background-color: #A5C9CA;
+  text-align: center;
+  padding: 2em;
+} */
+
+.container {
+  display: grid;
+  /* max-width: 900px;
+  min-height: 50vh; */
+  height: 100vh;
+  margin-left: 10vh;
+  margin-right: 10vh;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-areas: "header" "left" "main" "right" "footer";
+}
+
+@media (min-width: 440px) {
+  .container {
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: 20vh 5vh auto 10vh;
+    /* grid-template-areas: "header header header" "nav nav nav" "left main right" "footer footer footer"; */
+    grid-template-areas: "header header header" "nav nav nav" "main main main" "footer footer footer";
+  }
+}
+
+header {
+  grid-area: header;
+  padding: 10px;
+  background-color: rgb(41, 218, 79);
+  color: #fff;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+main {
+  grid-area: main;
+  padding: 25px;
+  text-align: center;
+  border: 1px solid olive;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.left {
+  grid-area: left;
+  background-color: peachpuff;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.right {
+  grid-area: right;
+}
+
+footer {
+  grid-area: footer;
+  padding: 10px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+}
+
+.sidebar {
+  padding: 25px;
+  background-color: darkcyan;
+}
+
+header img {
+  height: 100%;
+}
+
+nav {
+  grid-area: nav;
+  background-color: bisque;
+}
+
+nav ul {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  list-style-type: none;
+  width: 100%;
+  height: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+nav .nav-item {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+nav .nav-item:hover {
+  color: red;
+}
+
+.reserve {
+  width: 100%;
+  border: 1px solid red;
+}
+
+.res-form {
+  grid-area: main;
 }
