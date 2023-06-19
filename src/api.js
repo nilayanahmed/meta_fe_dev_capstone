@@ -19,6 +19,7 @@ const fetchAPI = function(date) {
             result.push(i + ':30');
         }
     }
+    console.log(result);
     return result;
 };
 

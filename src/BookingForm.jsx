@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import {
   Box,
-  Button,
+  Button ,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -11,8 +11,12 @@ import {
   Select,
   Textarea,
   VStack,
+  NumberInputField, NumberInput, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper
 } from "@chakra-ui/react";
+// import Button from 'react-bootstrap/Button';
+import { PhoneIcon, AddIcon, WarningIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import * as Yup from 'yup';
+
 
 export default function BookingForm(props) {
     const style = {
@@ -31,71 +35,76 @@ export default function BookingForm(props) {
 
     const formik = useFormik({
         initialValues: {
+            // date: new Date().toISOString().split('T')[0],
             date: "",
             time: "13:00",
-            guests: 2,
+            // guests: 2,
             occasion: "Birthday"
         },
         onSubmit: (values) => {
-            console.log('submitting ofrm')
+            console.log('submitting form')
             submitForm(values);
         },
         validationSchema: Yup.object({
-          date: Yup.string().min(3, "Must be at least 3 characters").required("Required"),
-          time: Yup.string().email("Invalid email address").required("Required"),
+          date: Yup.string().required("Required"),
+          time: Yup.string().required("Required"),
           guests: Yup.number().min(1).max(10).required("Required"),
           occasion: Yup.string().required("Required")
         })
       });
 
     const handleDateChange = (e) => {
-        setDate(e.target.value);
+        // setDate(e.target.value);
+        console.log(e.target.value);
         dispatch({type: 'fetch', date: e.target.value});
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(date);
-        console.log(time);
-        console.log(guests);
-        console.log(occasion);
+        // console.log(date);
+        // console.log(time);
+        // console.log(guests);
+        // console.log(occasion);
         submitForm(e.target.value);
     }
 
-    return (
+    return (  
         <div className="res-form">
-            <h1>Reserve a Table</h1>
+            <Heading as="h1">
+              Reserve a Table
+            </Heading>
             <form onSubmit={formik.handleSubmit}>
-              <FormControl isInvalid={formik.errors.date && formik.touched.date}>
+              <FormControl isRequired isInvalid={formik.errors.date && formik.touched.date}>
                 <FormLabel htmlFor="date">Date</FormLabel>
-                <Input
-                  id="date"
-                  name="date"
-                  type="date"
-                  {...formik.getFieldProps("date")}
+                <Input id="date" name="date" type="date" {...formik.getFieldProps("date")} 
+                  onBlur={e => handleDateChange(e)}
                 />
                 <FormErrorMessage>{formik.errors.date}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={formik.errors.time && formik.touched.time}>
+              <FormControl isRequired isInvalid={formik.errors.time && formik.touched.time}>
                 <FormLabel htmlFor="time">Time</FormLabel>
-                <Select
-                  id="time"
-                  name="time"
-                  {...formik.getFieldProps("time")}>
+                <Select id="time" name="time" {...formik.getFieldProps("time")}>
                     {availableTimes.map((time) => <option key={time}> {time} </option>)}
-                    </Select>
+                </Select>
                 <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
               </FormControl>
               <FormControl>
                 <FormLabel htmlFor="guests">Number of Guests</FormLabel>
-                <Input type="number" placeholder="1" min="1" max="10" name="guests" id="guests" {...formik.getFieldProps("guests")} />
+                {/* <Input type="number" placeholder="1" min="1" max="10" name="guests" id="guests" {...formik.getFieldProps("guests")} /> */}
+                <NumberInput name="guests" id="guests" {...formik.getFieldProps("guests")} defaultValue={2} min={1} max={10}>
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
               </FormControl>
               <FormControl isInvalid={formik.errors.comment && formik.touched.comment}>
                 <FormLabel htmlFor="comment">Your message</FormLabel>
-                <select id="occasion" name="occasion" {...formik.getFieldProps("occasion")} >
+                <Select id="occasion" name="occasion" {...formik.getFieldProps("occasion")} >
                     <option>Birthday</option>
                     <option>Anniversary</option>
-                </select>
+                </Select>
               </FormControl>
               <Button type="submit" colorScheme="purple" width="full">
                 Submit
