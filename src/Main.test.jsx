@@ -1,5 +1,3 @@
-import { shallow } from "enzyme";
-import Main from "./Main";
 import { initializeTimes, updateTimes } from "./Main";
 import { fetchAPI } from "./api";
 
@@ -14,9 +12,17 @@ test ('initializeTimes should call fetchAPI', () => {
     expect(fetchAPI).toBeCalled();
 })
 
+test ('updateTimes should return state', () => {
+    const state = ['17:00', '17:30', '18:00'];
+    const action = {type: 'get'};
+    const availableTimes = updateTimes(state, action);
+    expect(availableTimes).toBe(state);
+    expect(fetchAPI).not.toBeCalled();
+})
+
 test ('updateTimes should call fetchAPI', () => {
     const state = ['17:00', '17:30', '18:00'];
     const action = {type: 'fetch'};
-    updateTimes(state, action);
+    const r = updateTimes(state, action);
     expect(fetchAPI).toBeCalled();
 })
