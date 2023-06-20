@@ -46,7 +46,7 @@ export default function BookingForm(props) {
             <Heading as="h1">
               Reserve a Table
             </Heading>
-            <form onSubmit={formik.handleSubmit}>
+            <form aria-label="reservation-form" onSubmit={formik.handleSubmit}>
               <VStack>
               <FormControl isInvalid={formik.errors.date && formik.touched.date}>
                 <FormLabel htmlFor="date">Date</FormLabel>
@@ -74,7 +74,7 @@ export default function BookingForm(props) {
                 </Select>
                 <FormErrorMessage>{formik.errors.occasion}</FormErrorMessage>
               </FormControl>
-              <Button id="res-submit" type="submit" colorScheme="purple" width="full" data-testid="res-submit">
+              <Button id="res-submit" type="submit" aria-label="submit" colorScheme="purple" width="full" data-testid="res-submit">
                 Submit
               </Button>
               </VStack>
