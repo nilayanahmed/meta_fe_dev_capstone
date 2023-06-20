@@ -3,9 +3,11 @@ import menu from './static/menu.jpg'
 
 export default function Menu() {
     return (
-        <VStack className="menu">
-            <h1>Menu</h1>
-            <img src={menu} alt="Menu"></img>
-        </VStack>
+        <section className="menu">
+            <VStack>
+                <h1>Menu</h1>
+                <img src={menu} alt="Menu" width="100%"></img>
+            </VStack>
+        </section>
     );
 }

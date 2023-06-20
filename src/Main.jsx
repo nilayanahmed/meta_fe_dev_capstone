@@ -3,30 +3,30 @@ import Home from './Home';
 import Menu from './Menu';
 import About from './About';
 import BookingPage from './BookingPage';
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer } from 'react';
 
 import {fetchAPI, submitAPI} from './api';
 import ConfirmedBooking from './ConfirmedBooking';
 
-export default function Main () {
-    const navigate = useNavigate("/confirmed")
-    const initializeTimes = () => {
-        return fetchAPI(new Date());
+const initializeTimes = () => {
+    return fetchAPI(new Date());
+};
+const updateTimes = (state, action) => {
+    if (action.type === 'fetch') {
+        return fetchAPI(new Date(action.date));
     }
-    const updateTimes = (state, action) => {
-        if (action.type === 'fetch') {
-            return fetchAPI(new Date(action.date));
-        }
-        return state;
-    };
+    return state;
+};
+
+export default function Main () {
+    const navigate = useNavigate();
+    
     const [availableTimes, dispatch] = useReducer(updateTimes, null, initializeTimes);
 
     const submitForm = (formData) => {
-        console.log(formData);
         submitAPI(formData);
         navigate("/confirmed");
     };
-
 
     return (
         <Routes>
@@ -37,4 +37,6 @@ export default function Main () {
             <Route path="/confirmed" element={<ConfirmedBooking />} />
         </Routes>
     );
-}
+};
+
+export {initializeTimes, updateTimes};

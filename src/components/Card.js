@@ -9,7 +9,7 @@ const Card = ({ title, description, imageSrc }) => {
        borderRadius="xl" borderWidth="1px" borderColor="black"
        padding="5px" spacing="4">
       <Box>
-          <Image src={imageSrc} alt={title} borderRadius="xl" width="100%"></Image>
+          <Image src={imageSrc} alt={title} borderRadius="xl" height="200px" width="400px"></Image>
       </Box>
       <Box padding="5px">
         <Heading as="h1" size="1xl">{title}</Heading>
